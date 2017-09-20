@@ -1,29 +1,31 @@
 package ru.neustupov.impls.robot;
 
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import ru.neustupov.interfaces.Hand;
 import ru.neustupov.interfaces.Head;
 import ru.neustupov.interfaces.Leg;
 import ru.neustupov.interfaces.Robot;
 
-public class ModelT1000 implements Robot {
+public class ModelT1000 implements Robot, InitializingBean, DisposableBean {
 
-	private Hand hand;
-	private Leg leg;
-	private Head head;
+    private Hand hand;
+    private Leg leg;
+    private Head head;
 
-	private String color;
-	private int year;
-	private boolean SoundEnabled;
+    private String color;
+    private int year;
+    private boolean SoundEnabled;
 
-	public ModelT1000() {
-	}
+    public ModelT1000() {
+    }
 
-	public ModelT1000(Hand hand, Leg leg, Head head) {
-		super();
-		this.hand = hand;
-		this.leg = leg;
-		this.head = head;
-	}
+    public ModelT1000(Hand hand, Leg leg, Head head) {
+        super();
+        this.hand = hand;
+        this.leg = leg;
+        this.head = head;
+    }
 
     public ModelT1000(String color, int year, boolean soundEnabled) {
         this.color = color;
@@ -50,8 +52,8 @@ public class ModelT1000 implements Robot {
     }
 
     public void dance() {
-		System.out.println("T1000 is dancing!");
-	}
+        System.out.println("T1000 is dancing!");
+    }
 
     public Hand getHand() {
         return hand;
@@ -99,5 +101,13 @@ public class ModelT1000 implements Robot {
 
     public void setSoundEnabled(boolean soundEnabled) {
         SoundEnabled = soundEnabled;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("init");
+    }
+
+    public void destroy() throws Exception {
+        System.out.println("destroy");
     }
 }
