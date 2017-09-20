@@ -1,13 +1,11 @@
 package ru.neustupov.impls.robot;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import ru.neustupov.interfaces.Hand;
 import ru.neustupov.interfaces.Head;
 import ru.neustupov.interfaces.Leg;
 import ru.neustupov.interfaces.Robot;
 
-public class ModelT1000 implements Robot, InitializingBean, DisposableBean {
+public class ModelT1000 implements Robot{
 
     private Hand hand;
     private Leg leg;
@@ -103,11 +101,4 @@ public class ModelT1000 implements Robot, InitializingBean, DisposableBean {
         SoundEnabled = soundEnabled;
     }
 
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("init");
-    }
-
-    public void destroy() throws Exception {
-        System.out.println("destroy");
-    }
 }
