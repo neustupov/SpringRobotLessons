@@ -3,78 +3,44 @@ package ru.neustupov.impls.robot;
 import ru.neustupov.interfaces.Hand;
 import ru.neustupov.interfaces.Head;
 import ru.neustupov.interfaces.Leg;
-import ru.neustupov.interfaces.Robot;
 
-public class ModelT1000 implements Robot{
-
-    private Hand hand;
-    private Leg leg;
-    private Head head;
+public class ModelT1000 extends BaseModel {
 
     private String color;
     private int year;
-    private boolean SoundEnabled;
+    private boolean soundEnabled;
 
     public ModelT1000() {
     }
 
     public ModelT1000(Hand hand, Leg leg, Head head) {
-        super();
-        this.hand = hand;
-        this.leg = leg;
-        this.head = head;
+        super(hand, leg, head);
+    }
+
+    public ModelT1000(Hand hand, Leg leg, Head head, String color, int year, boolean soundEnabled) {
+        super(hand, leg, head);
+        this.color = color;
+        this.year = year;
+        this.soundEnabled = soundEnabled;
     }
 
     public ModelT1000(String color, int year, boolean soundEnabled) {
         this.color = color;
         this.year = year;
-        SoundEnabled = soundEnabled;
+        this.soundEnabled = soundEnabled;
     }
 
-    public ModelT1000(Hand hand, Leg leg, Head head, String color, int year, boolean soundEnabled) {
-        this.hand = hand;
-        this.leg = leg;
-        this.head = head;
-        this.color = color;
-        this.year = year;
-        SoundEnabled = soundEnabled;
-    }
-
-    public void fire() {
-        head.calc();
-        hand.catchSomething();
-        leg.go();
+    public void action() {
+        getHead().calc();
+        getHand().catchSomething();
+        getLeg().go();
         System.out.println("color: " + color);
         System.out.println("year: " + year);
-        System.out.println("soundEnabled: " + isSoundEnabled());
+        System.out.println("can play sound: " + soundEnabled);
     }
 
     public void dance() {
         System.out.println("T1000 is dancing!");
-    }
-
-    public Hand getHand() {
-        return hand;
-    }
-
-    public void setHand(Hand hand) {
-        this.hand = hand;
-    }
-
-    public Leg getLeg() {
-        return leg;
-    }
-
-    public void setLeg(Leg leg) {
-        this.leg = leg;
-    }
-
-    public Head getHead() {
-        return head;
-    }
-
-    public void setHead(Head head) {
-        this.head = head;
     }
 
     public String getColor() {
@@ -94,11 +60,10 @@ public class ModelT1000 implements Robot{
     }
 
     public boolean isSoundEnabled() {
-        return SoundEnabled;
+        return soundEnabled;
     }
 
     public void setSoundEnabled(boolean soundEnabled) {
-        SoundEnabled = soundEnabled;
+        this.soundEnabled = soundEnabled;
     }
-
 }

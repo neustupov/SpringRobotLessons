@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-lazy-init="true">
 
+    <import resource="sony_context.xml"/>
+    <import resource="toshiba_context.xml"/>
+    <import resource="db_context.xml"/>
+
     <bean id="T1000" class="ru.neustupov.impls.robot.ModelT1000"
-          c:hand-ref="sonyHand"
-          c:leg-ref="toshibaLeg"
-          c:head-ref="sonyHead"
           c:color="silver"
           c:year="2006"
           c:soundEnabled="false"
-          scope="prototype"/>
+          scope="prototype"
+          depends-on="databaseBean"
+          parent="baseModel"/>
 
     <bean id="T1000Empty" class="ru.neustupov.impls.robot.ModelT1000"
           c:hand-ref="sonyHand"
@@ -25,14 +28,12 @@
           c:year="2006"
           c:soundEnabled="false"/>
 
-    <bean id="sonyHand" class="ru.neustupov.impls.sony.SonyHand" scope="prototype"/>
-    <bean id="sonyHead" class="ru.neustupov.impls.sony.SonyHead"/>
-    <bean id="sonyLeg" class="ru.neustupov.impls.sony.SonyLeg"/>
+    <bean id="baseModel" abstract="true">
+        <constructor-arg ref="sonyHand"/>
+        <constructor-arg ref="toshibaLeg"/>
+        <constructor-arg ref="sonyHead"/>
 
-    <bean id="toshibaHand" class="ru.neustupov.impls.toshiba.ToshibaHand"/>
-    <bean id="toshibaHead" class="ru.neustupov.impls.toshiba.ToshibaHead"/>
-    <bean id="toshibaLeg" class="ru.neustupov.impls.toshiba.ToshibaLeg"/>
-
-    <bean class="ru.neustupov.impls.BeanPostProcessorImpl"/>
+        <property name="hand" ref="sonyHand"/>
+    </bean>
 
 </beans>
